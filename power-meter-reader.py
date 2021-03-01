@@ -17,13 +17,16 @@ DIALS = [
   [0, True]
 ]
 
+# Output folder must exist
+OutputFolder = "output"
+
 def clear_debug():
-    filelist = glob.glob("output/*.jpg")
+    filelist = glob.glob(f"{OutputFolder}/*.jpg")
     for f in filelist:
         os.remove(f)
 
 def write_debug(img, name):
-    cv2.imwrite(f"output/{name}.jpg", img)
+    cv2.imwrite(f"{OutputFolder}/{name}.jpg", img)
 
 def find_hand_edge(edges):
     for threshold in range (80, 20, -2):
