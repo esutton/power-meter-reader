@@ -92,6 +92,10 @@ def read_dial(config, idx, img):
     if not clockwise:
         angle_p = 1 - angle_p
 
+    # ToDo: If angle is close to 4, for example 3.839, and nec=xt right-dial is past zero at ~ 1.8, then round-up 3.839 to 4
+    print ("angle[%d] %s" % (idx, angle))
+    print ("angle[%d] %s" % (idx, angle_p))
+    print ("angle[%d] 10 * %s" % (idx, 10*angle_p))
     return int(10*angle_p)
 
 clear_debug()
@@ -127,7 +131,11 @@ for idx, dial in enumerate(sorted_dials):
     x,y,radius = dial
     dial_img = resized[y-radius:y+radius,x-radius:x+radius].copy()
     value = read_dial(DIALS[idx], idx, dial_img)
+
+    print("dial[%d] %s" % (idx, value))
+
     result += str(value)
+
     # draw the outer circle
     cv2.circle(resized,(x,y),radius,(0,255,0),2)
     # draw the center of the circle
